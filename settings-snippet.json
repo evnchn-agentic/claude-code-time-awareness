@@ -6,7 +6,16 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Current time: '$(date \"+%H:%M %Z %A\")'\"}}'"
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Current time: '$(date \"+%H:%M:%S %Z %A\")'\"}}'"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__playwright__",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Current time: '$(date \"+%H:%M:%S %Z %A\")'\"}}'"
           }
         ]
       }
