@@ -48,7 +48,7 @@ The first version of this repo stamped after every Bash and Playwright call. Mea
 
 Each stamp is small, but it was one more line of context on almost every call. The throttle removes 99.6% of those lines, and no Bash call ran with a clock more than about a quarter of an hour old. It does not save processes: the script still starts on every matched call and decides to stay silent (see the FAQ).
 
-**Why per agent, not per session:** keyed on `session_id` alone, a subagent shares its parent's throttle but not its context. On the same machine that left 178 of 200 subagents that ran 5+ Bash calls without a single stamp. The per-call echo had left none without one (0 of 262).
+**Why per agent, not per session:** keyed on `session_id` alone, a subagent shares its parent's throttle but not its context. On the same machine that left 185 of 208 subagents that ran 5+ Bash calls (2–16 Nov) without a single stamp. The per-call echo had left none without one (0 of 337, 15–30 Oct).
 
 ## Why Seconds?
 
