@@ -2,20 +2,23 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Bash",
+        "matcher": "Bash|mcp__playwright__",
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Current time: '$(date \"+%H:%M:%S %Z %A\")'\"}}'"
+            "command": "python3 $HOME/.claude/hooks/time-stamp.py",
+            "timeout": 5
           }
         ]
-      },
+      }
+    ],
+    "UserPromptSubmit": [
       {
-        "matcher": "mcp__playwright__",
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Current time: '$(date \"+%H:%M:%S %Z %A\")'\"}}'"
+            "command": "python3 $HOME/.claude/hooks/time-stamp.py",
+            "timeout": 5
           }
         ]
       }
