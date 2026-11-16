@@ -46,7 +46,7 @@ The first version of this repo stamped after every Bash and Playwright call. Mea
 | per-call echo (15–30 Oct 2026) | 19,677 | 19,111 | ~0 |
 | throttled, 10 min (2–16 Nov 2026) | 20,783 | 80 | p50 0.4 min · p99 9.2 min · max 14.2 min |
 
-Each stamp is small, but it was one more process and one more line of context on almost every call. The throttle removes 99.6% of them, and no Bash call ran with a clock more than about a quarter of an hour old.
+Each stamp is small, but it was one more line of context on almost every call. The throttle removes 99.6% of those lines, and no Bash call ran with a clock more than about a quarter of an hour old. It does not save processes: the script still starts on every matched call and decides to stay silent (see the FAQ).
 
 **Why per agent, not per session:** keyed on `session_id` alone, a subagent shares its parent's throttle but not its context. On the same machine that left 178 of 200 subagents that ran 5+ Bash calls without a single stamp. The per-call echo had left none without one (0 of 262).
 
@@ -102,7 +102,7 @@ The original per-call version, if you want a stamp after every Bash call and no 
 ## FAQ
 
 **Does this add overhead?**
-A Python start-up per Bash/Playwright call (tens of milliseconds), and about 15 tokens of context per stamp — at most one stamp per agent per 10 minutes, plus one per prompt.
+A Python start-up per Bash/Playwright call: about 27 ms median, against about 5 ms for the unthrottled `echo` one-liner (20 runs each on an Apple Silicon Mac). Plus about 15 tokens of context per stamp — at most one stamp per agent per 10 minutes, plus one per prompt.
 
 **Will the agent always obey the time?**
 No — the time is informational, not a hard stop. The agent sees the time and can choose to wind down, but nothing forces it. This is by design: a binding time limit would be dangerous (can't stop on errors, runaway loops).
